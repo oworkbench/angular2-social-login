@@ -33,13 +33,15 @@ var AuthService = (function () {
                 case "facebook":
                     FB.getLoginStatus(function (response) {
                         if (response.status === "connected") {
-                            FB.api('/me?fields=name,email,picture', function (res) {
+                            FB.api('/me?fields=name,first_name,last_name,email,picture', function (res) {
                                 if (!res || res.error) {
                                     observer.error(res.error);
                                 }
                                 else {
                                     var userDetails = {
                                         name: res.name,
+                                        firstName: res.first_name,
+                                        lastName: res.last_name,
                                         email: res.email,
                                         uid: res.id,
                                         provider: "facebook",
