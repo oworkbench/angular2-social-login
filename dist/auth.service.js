@@ -83,7 +83,7 @@ var AuthService = (function () {
                 case "linkedin":
                     IN.User.authorize(function () {
                         IN.API.Raw("/people/~:(id,first-name,last-name,email-address,picture-url)").result(function (res) {
-                            var userDetails = { name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl };
+                            var userDetails = {firstName: res.firstName,lastName: res.lastName, name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl };
                             localStorage.setItem('_login_provider', 'linkedin');
                             observer.next(userDetails);
                             observer.complete();
