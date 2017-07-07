@@ -43,12 +43,14 @@ export class AuthService {
                     case "facebook":
                                     FB.getLoginStatus((response: any) => {
                                         if(response.status === "connected"){
-                                            FB.api('/me?fields=name,email,picture', (res: any) => {
+                                            FB.api('/me?fields=name,first_name,last_name,email,picture', (res: any) => {
                                                 if(!res || res.error){
                                                     observer.error(res.error);
                                                 }else{
                                                     let userDetails = {
-                                                        name: res.name, 
+                                                        name: res.name,
+                                                        firstName: res.first_name,
+                                                        lastName: res.last_name,
                                                         email: res.email, 
                                                         uid: res.id, 
                                                         provider: "facebook", 
@@ -64,12 +66,14 @@ export class AuthService {
                                         else{
                                             FB.login((response: any) => {
                                                 if(response.status === "connected"){
-                                                    FB.api('/me?fields=name,email,picture', (res: any) => {
+                                                    FB.api('/me?fields=name,first_name,last_name,email,picture', (res: any) => {
                                                         if(!res || res.error){
                                                             observer.error(res.error);
                                                         }else{
                                                             let userDetails = {
-                                                                name: res.name, 
+                                                                name: res.name,
+                                                                firstName: res.first_name,
+                                                                lastName: res.last_name,
                                                                 email: res.email, 
                                                                 uid: res.id, 
                                                                 provider: "facebook", 
@@ -89,7 +93,7 @@ export class AuthService {
                     case "linkedin":
                                     IN.User.authorize(function(){
                                         IN.API.Raw("/people/~:(id,first-name,last-name,email-address,picture-url)").result(function(res: any){
-                                            let userDetails = {name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl};
+                                            let userDetails = {firstName: res.firstName,lastName: res.lastName, name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl};
                                             localStorage.setItem('_login_provider', 'linkedin');
                                             observer.next(userDetails);
                                             observer.complete();
