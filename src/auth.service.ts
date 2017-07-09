@@ -154,6 +154,8 @@ export class AuthService {
             idToken: idToken,
             uid: profile.getId(),
             name: profile.getName(),
+            firstName: profile.getGivenName(),
+            lastName: profile.getFamilyName(),
             email: profile.getEmail(),
             image: profile.getImageUrl(),
             provider: "google"
